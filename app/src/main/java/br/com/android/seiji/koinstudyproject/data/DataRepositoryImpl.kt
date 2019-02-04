@@ -3,9 +3,9 @@ package br.com.android.seiji.koinstudyproject.data
 import br.com.android.seiji.koinstudyproject.model.Currency
 import com.google.gson.Gson
 
-class DataRepositoryImpl(val gson: Gson) {
+class DataRepositoryImpl(private val gson: Gson) : DataRepository {
 
-    fun getCurrencies(jsonString: String): List<Currency> {
+    override fun getCurrencies(jsonString: String): List<Currency> {
         return gson.fromJson(jsonString, Array<Currency>::class.java).toList()
     }
 

@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import br.com.android.seiji.koinstudyproject.model.Currency
 
-class CurrenciesAdaper : RecyclerView.Adapter<CurrenciesAdaper.ViewHolder>() {
+class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.ViewHolder>() {
 
-    val currencies: List<Currency> = arrayListOf()
+    var currencies: List<Currency> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_currency, parent, false)
+            .inflate(R.layout.item_currency, parent, false)
         return ViewHolder(itemView)
     }
 
