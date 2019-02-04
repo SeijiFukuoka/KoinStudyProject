@@ -1,16 +1,19 @@
 package br.com.android.seiji.koinstudyproject
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import br.com.android.seiji.koinstudyproject.data.DataRepositoryFactory
+import br.com.android.seiji.koinstudyproject.presentation.CurrenciesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private val currenciesAdapter: CurrenciesAdapter by inject()
-    private val dataRepositoryFactory: DataRepositoryFactory by inject()
+    private val currenciesViewModel: CurrenciesViewModel by viewModel()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,10 +21,16 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
 
+        currenciesViewModel.observeCurrencies().observe(this, Observer {
+            it?.let { currenciesAdapter.currencies = it }
+        })
+
+
         val currenciesJson = resources.openRawResource(R.raw.currencies)
             .bufferedReader().use { it.readText() }
-        val items = dataRepositoryFactory.retrieveRemoteSource().getCurrencies(currenciesJson)
-        currenciesAdapter.currencies = items
+        currenciesViewModel.retrieveCurrencies(currenciesJson)
+
+
     }
 
     private fun setupRecyclerView() {
