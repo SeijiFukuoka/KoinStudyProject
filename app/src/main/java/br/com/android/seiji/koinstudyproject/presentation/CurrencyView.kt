@@ -1,7 +1,6 @@
 package br.com.android.seiji.koinstudyproject.presentation
 
 import android.content.Context
-import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
@@ -18,7 +17,7 @@ class CurrencyView @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr), KoinComponent {
 
-    val urlHelper: UrlHelper by inject()
+    private val urlHelper: UrlHelper by inject()
 
     init {
         View.inflate(context, R.layout.view_currency, this)
@@ -29,10 +28,7 @@ class CurrencyView @JvmOverloads constructor(
         textSymbol.text = currency.symbol
 
         setOnClickListener {
-            urlHelper.launchUrl(
-                    context,
-                    Uri.parse("https://coinmarketcap.com/currencies/${currency.slug}")
-            )
+            urlHelper.launchCurrencyUrl(context, currency.slug)
         }
     }
 
