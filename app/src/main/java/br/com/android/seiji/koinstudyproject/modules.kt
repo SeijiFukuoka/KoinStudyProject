@@ -16,11 +16,13 @@ val applicationModule = module {
     single { Gson() }
     single { UrlHelper() }
 
-    factory { CurrenciesAdapter() }
     factory<DataRepository>("local") { LocalRepositoryImpl(get()) }
     factory<DataRepository>("remote") { RemoteRepositoryImpl(get()) }
 
     factory { DataRepositoryFactory(get("local"), get("remote")) }
+}
 
+val browseModule = module("browse") {
+    factory { CurrenciesAdapter() }
     viewModel { CurrenciesViewModel(get()) }
 }

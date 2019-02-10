@@ -8,6 +8,8 @@ import br.com.android.seiji.koinstudyproject.presentation.CurrenciesAdapter
 import br.com.android.seiji.koinstudyproject.presentation.CurrenciesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+import org.koin.android.scope.ext.android.bindScope
+import org.koin.android.scope.ext.android.getOrCreateScope
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        bindScope(getOrCreateScope("browse"))
+
         setupRecyclerView()
 
         currenciesViewModel.observeCurrencies().observe(this, Observer {
@@ -28,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val currenciesJson = resources.openRawResource(R.raw.currencies)
-            .bufferedReader().use { it.readText() }
+                .bufferedReader().use { it.readText() }
         currenciesViewModel.retrieveCurrencies(currenciesJson)
 
 
