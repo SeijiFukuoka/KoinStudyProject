@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import br.com.android.seiji.koinstudyproject.presentation.CurrenciesAdapter
 import br.com.android.seiji.koinstudyproject.presentation.CurrenciesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject

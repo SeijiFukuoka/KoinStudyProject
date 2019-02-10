@@ -1,10 +1,10 @@
-package br.com.android.seiji.koinstudyproject
+package br.com.android.seiji.koinstudyproject.presentation
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import br.com.android.seiji.koinstudyproject.R
 import br.com.android.seiji.koinstudyproject.model.Currency
 
 class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.ViewHolder>() {
@@ -13,7 +13,7 @@ class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_currency, parent, false)
+                .inflate(R.layout.item_currency, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -22,14 +22,11 @@ class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currency = currencies[position]
-        holder.name.text = currency.name
-        holder.symbol.text = currency.symbol
+        holder.currencyView.setCurrency(currencies[position])
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.textName)
-        val symbol: TextView = view.findViewById(R.id.textSymbol)
+        val currencyView: CurrencyView = view.findViewById(R.id.view_currency)
     }
 
 }
