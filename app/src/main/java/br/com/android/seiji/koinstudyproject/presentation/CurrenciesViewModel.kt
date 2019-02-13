@@ -7,7 +7,8 @@ import br.com.android.seiji.koinstudyproject.data.DataRepositoryFactory
 import br.com.android.seiji.koinstudyproject.model.Currency
 
 class CurrenciesViewModel constructor(
-    private val dataRepositoryFactory: DataRepositoryFactory
+    private val dataRepositoryFactory: DataRepositoryFactory,
+    private val jsonString: String
 ) : ViewModel() {
 
     private val currencyLiveData = MutableLiveData<List<Currency>>()
@@ -16,7 +17,7 @@ class CurrenciesViewModel constructor(
         return currencyLiveData
     }
 
-    fun retrieveCurrencies(jsonString: String) {
+    fun retrieveCurrencies() {
         val data = dataRepositoryFactory.retrieveRemoteSource().getCurrencies(jsonString)
         currencyLiveData.postValue(data)
     }
